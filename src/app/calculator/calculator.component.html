@@ -1,0 +1,38 @@
+<div class="col-md-12">
+  <div class="card card-container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="isLoggedIn">
+      <div class="form-group">
+        <label for="amount">Amount</label>
+        <input type="text" formControlName="amount" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.amount.errors }" />
+        <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
+          <div *ngIf="f.amount.errors.required">Amount is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="currency">Currency</label>
+        <input type="text" formControlName="currency" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.currency.errors }" />
+        <div *ngIf="submitted && f.currency.errors" class="invalid-feedback">
+          <div *ngIf="f.currency.errors.required">Currency is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          calculate
+        </button>
+      </div>
+    </form>
+
+    <div class="form-group">
+      <div
+        class="alert alert-danger"
+        role="alert"
+        *ngIf=" isCalculError">
+        convert failed: {{ errorMessage }}
+      </div>
+    </div>
+    <div class="alert alert-success" *ngIf="!isCalculError">
+      result : {{ result }}.
+    </div>
+  </div>
+</div>
